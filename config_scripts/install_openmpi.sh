@@ -1,3 +1,5 @@
+sudo apt-get install curl
+
 # Creating build directory
 if [ ! -d $HOME/openmpi ]; then
 	mkdir $HOME/openmpi;

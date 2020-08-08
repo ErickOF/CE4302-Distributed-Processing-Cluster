@@ -6,11 +6,11 @@ sudo apt-get install nfs-common portmap
 
 # Creating directory
 if [ ! -d .ssh ]; then
-	mkdir .ssh
+	mkdir ~/.ssh
 fi
 
 # Gift permissions
 chmod 700 .ssh
 
 # Moving key
-mv id_rsa.pub .ssh/authrized_keys
+mv ~/id_rsa.pub ~/.ssh/authrized_keys
