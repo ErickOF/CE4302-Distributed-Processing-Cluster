@@ -2,7 +2,6 @@
 
 APP=filter
 SHARED_DIR=/home/erick/shared_dir
-MPI_FILE=/home/erick/.mpi_hostfile
 
 SLAVES_DIR=slaves
 
