@@ -2,15 +2,22 @@
 
 APP=filter
 SHARED_DIR=/home/erick/shared_dir
-
+FLAGS=-lm -lpng
 SLAVES_DIR=slaves
 
-build_filter:
-	@mpic ${SHARED_DIR}/${APP}.c -o ${SHARED_DIR}/${APP}.out
+build_filter_gcc:
+	@gcc ${APP}.c -o ${APP}.out ${FLAGS}
+
+build_filter_mpic:
+	@mpic ${SHARED_DIR}/${APP}.c -o ${SHARED_DIR}/${APP}.out ${FLAGS}
 
 run_filter_local:
 	@chmod +x ${SHARED_DIR}/${APP}.out
-	./${SHARED_DIR}/${APP}.out -in ${IMAGE} -c ${CORES}
+	@./${SHARED_DIR}/${APP}.out -in ${IMAGE}
+	@./${APP}.out -in ${IMAGE}
+	@xdg-open output.*
 
 run_filter_cluster:
-	@mpirun -v -np 2 --host master,slave1 ${SHARED_DIR}/${APP}.out -in ${IMAGE} -c ${CORES}
+	@mpic ${SHARED_DIR}/${APP}.c -o ${SHARED_DIR}/${APP}.out ${FLAGS}
+	@mpirun -v -np 2 -n ${CORES} --host master,slave1 ${SHARED_DIR}/${APP}.out -in ${IMAGE}
+	@xdg-open output.*

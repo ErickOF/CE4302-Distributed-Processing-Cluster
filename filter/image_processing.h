@@ -19,7 +19,6 @@
 #include "filters.h"
 
 
-
 /*  Loads an image from memory
  *
  *  filename:   Path to the image
@@ -29,12 +28,14 @@
  *  desired_channels:   Number of channels we want to load from the image
  *
  */
-uint8_t* read_image(char* filename, int width, int height, int channels, int desired_channels){
-
+uint8_t* read_image(char* filename, int width, int height, int channels, int desired_channels)
+{
     //printf("%s\t%i\t%i\t%i\t%i\n", filename, width, height, channels, desired_channels);
     // Read the image with a given w*h*c, last parameter is to ignore channels
     uint8_t* image = stbi_load(filename, &width, &height, &channels, desired_channels);
-    if(image == NULL) {
+
+    if(image == NULL) 
+    {
         printf("Error in loading the image\n");
         exit(1);
     }
@@ -43,7 +44,8 @@ uint8_t* read_image(char* filename, int width, int height, int channels, int des
     return image;
 }
 
-void write_image(char* filename, uint8_t* image, int width, int height, int channels){
+void write_image(char* filename, uint8_t* image, int width, int height, int channels)
+{
     // Write the image in png
     stbi_write_png(filename, width, height, channels, image, width*channels);
 }
@@ -108,7 +110,7 @@ uint8_t* apply_filter(  uint8_t* target,
 uint8_t get_strongest_channel(uint8_t* image)
 {
     // Define accumulator variable
-    float* mean_rgb_values = calloc(3, sizeof(float));
+    float* mean_rgb_values = (float*) calloc(3, sizeof(float));
 
     // HEIGHT and WIDTH limits have to be multiplicated to take into account
     // the channels of the image
@@ -131,10 +133,12 @@ uint8_t get_strongest_channel(uint8_t* image)
     {
         return 0;
     } // If the g channel is stronger or equal to the rest, select it
-    else if (mean_rgb_values[1] >= mean_rgb_values[2]) {
+    else if (mean_rgb_values[1] >= mean_rgb_values[2])
+    {
         return 1;
     } // If the b channel is stronger or equal to the rest, select it
-    else {
+    else
+    {
         return 2;
     }
 }

@@ -9,13 +9,13 @@
 #include "constants.h"
 
 
-uint8_t* get_values(uint8_t* image, size_t* current_pos, uint8_t kernel_size){
-
+uint8_t* get_values(uint8_t* image, size_t* current_pos, uint8_t kernel_size)
+{
     // Calc the amount of steps to move in each direction
     // Multiply by the CHANNELS to take them into account when
     // moving through the image
     uint8_t half_kernel = (kernel_size / 2);
-    uint8_t* values = calloc(kernel_size*kernel_size, sizeof(uint8_t));
+    uint8_t* values = (uint8_t*) calloc(kernel_size*kernel_size, sizeof(uint8_t));
     size_t v = 0;
 
 
@@ -200,7 +200,7 @@ void merge_sort(uint8_t* array,int lower_limit, int upper_limit, size_t arr_len)
 
 int* get_jpg_dim(const char* file){
 
-    int* dims = malloc(2*sizeof(int)); //{width, height}
+    int* dims = (int*) malloc(2*sizeof(int)); //{width, height}
     int iPos, i;
 
     // Open the file in binary mode
@@ -244,7 +244,7 @@ int* get_jpg_dim(const char* file){
 
 int* get_png_dim(const char* file){
 
-    int* dims = malloc(2*sizeof(int)); //{width, height}
+    int* dims = (int*) malloc(2*sizeof(int)); //{width, height}
     int iPos, i;
     int bit_depth;
     int color_type;
@@ -261,7 +261,7 @@ int* get_png_dim(const char* file){
     info_ptr = png_create_info_struct (png_ptr);
     png_init_io (png_ptr, fp);
     png_read_png (png_ptr, info_ptr, 0, 0);
-    png_get_IHDR (png_ptr, info_ptr, dims, dims+1, & bit_depth,
+    png_get_IHDR (png_ptr, info_ptr, dims, dims + 1, & bit_depth,
                   & color_type, & interlace_method, & compression_method,
                   & filter_method);
 
@@ -272,7 +272,11 @@ int* get_png_dim(const char* file){
 
 char *get_filename_ext(const char *filename) {
     char *dot = strrchr(filename, '.');
-    if(!dot || dot == filename) return "";
+
+    if (!dot || dot == filename) {
+        return "";
+    }
+
     return dot + 1;
 }
 
