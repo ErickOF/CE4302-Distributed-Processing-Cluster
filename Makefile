@@ -11,7 +11,7 @@ build_filter:
 
 run_filter_local:
 	@chmod +x ${SHARED_DIR}/${APP}.out
-	./${SHARED_DIR}/${APP}.out
+	./${SHARED_DIR}/${APP}.out -in ${IMAGE} -c ${CORES}
 
 run_filter_cluster:
-	@mpirun -v -np 2 --host master,slave1 ${SHARED_DIR}/${APP}.out
+	@mpirun -v -np 2 --host master,slave1 ${SHARED_DIR}/${APP}.out -in ${IMAGE} -c ${CORES}
