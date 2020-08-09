@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 
 void slice_str(const char* str, char* buffer, size_t start, size_t end)
@@ -18,6 +19,8 @@ void slice_str(const char* str, char* buffer, size_t start, size_t end)
 
 int main(int argc, char **argv)
 {
+    clock_t start = clock();
+
     // Images paths
     char* img_path = calloc(100, sizeof(char));
     char* img_output = (char*) calloc(14, sizeof(char));
@@ -56,6 +59,10 @@ int main(int argc, char **argv)
     processImage(img_path, img_output);
 
     free(img_output);
+
+    clock_t end = clock();
+
+    printf("Total time: %f s\n", (double) (end - start) / CLOCKS_PER_SEC);
 
     return 0;
 }

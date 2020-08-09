@@ -14,10 +14,9 @@ build_filter_mpic:
 run_filter_local:
 	@chmod +x ${SHARED_DIR}/${APP}.out
 	@./${SHARED_DIR}/${APP}.out -in ${IMAGE}
-	@./${APP}.out -in ${IMAGE}
 	@xdg-open output.*
 
 run_filter_cluster:
 	@mpic ${SHARED_DIR}/${APP}.c -o ${SHARED_DIR}/${APP}.out ${FLAGS}
-	@mpirun -v -np 2 -n ${CORES} --host master,slave1 ${SHARED_DIR}/${APP}.out -in ${IMAGE}
+	@mpirun -v -np 2 -n ${CORES} --host localhost,192.168.0.100 ${SHARED_DIR}/${APP}.out -in ${IMAGE}
 	@xdg-open output.*
